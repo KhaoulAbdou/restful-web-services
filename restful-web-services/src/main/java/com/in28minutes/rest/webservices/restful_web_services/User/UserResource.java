@@ -34,7 +34,12 @@ public class UserResource {
 	  //Get /Users/1
 	  @GetMapping("/users/{id}") 
 	  public User retrieveUser(@PathVariable int id){ 
-		  return service.findOne(id); 
+		  
+		  User user = service.findOne(id); 
+		  if (user==null) 
+			  throw new UserNotFoundException ("id:"+id);
+		  return user;
+		  
 	  }
 	
 	//Post /Users
@@ -46,7 +51,7 @@ public class UserResource {
 			  .path("/{id}")
 			  .buildAndExpand(savedUser.getId())
 			  .toUri();			  
-	  return ResponseEntity.created(location ).build();
+	  return ResponseEntity.created(location ).build(); // if user created so it return 201 location return id of user 
 
 		 	
 	}
