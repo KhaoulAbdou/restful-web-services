@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class UserResource {
 	
@@ -45,7 +47,7 @@ public class UserResource {
 	
 	//Post /Users
 	 @PostMapping("/users")
-	public ResponseEntity<User> createUser(@RequestBody User user) {
+	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
 	  User savedUser = service.save(user);
 	// users/4 => /users  user.getId
 	  URI location = ServletUriComponentsBuilder.fromCurrentRequest()
